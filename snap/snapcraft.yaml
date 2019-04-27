@@ -12,15 +12,15 @@
   grade: devel # must be 'stable' to release into candidate/stable channels
   confinement: devmode # use 'strict' once you have the right plugs and slots
 
-apps:
-  regius:
-    command: main.py
-    #plugs: [home,network-bind]   
-parts:
-  testapp:
-    plugin: python
-    python-version: python3
-    source: ./
-    #stage-packages: [tcsh,gawk]
-    python-packages: [pyobject]
+  apps:
+    regius:
+      command: main.py
+      #plugs: [home,network-bind]   
+  parts:
+    testapp:
+      plugin: python
+      python-version: python3
+      source: ./
+      #stage-packages: [tcsh,gawk]
+      python-packages: [pyobject]
   
