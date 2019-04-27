@@ -20,5 +20,6 @@
       plugin: python
       python-version: python3
       source: .
-      python-packages: [pyobject]
+      python-packages: [python3-pip python3-gi python3-docutils gir1.2-gtksource-3.0 \
+            gir1.2-webkit2-4.0 gir1.2-gtkspell3-3.0]
   
