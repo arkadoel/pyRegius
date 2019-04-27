@@ -4,6 +4,10 @@
   summary: IDE para desarrollo en python
   description: |
     Python Regius quiere ser un IDE para python, hecho en python.
+    
+  architectures:
+  - build-on: [amd64, i386]
+    run-on: [amd64, i386]
 
   grade: devel # must be 'stable' to release into candidate/stable channels
   confinement: devmode # use 'strict' once you have the right plugs and slots
