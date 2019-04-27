@@ -20,7 +20,7 @@
     testapp:
       plugin: python
       python-version: python3
-      source: ./
+      source: .
       #stage-packages: [tcsh,gawk]
       python-packages: [pyobject]
   
