@@ -19,7 +19,7 @@
     pyregius:
       plugin: python
       python-version: python3
-      source: .
+      source: ../  #http://dmnfarrell.github.io/software/python-snap
       #python-packages: 
       build-packages: [python3-pip, python3-gi, python3-docutils, gir1.2-gtksource-3.0, gir1.2-webkit2-4.0, gir1.2-gtkspell3-3.0]
   
