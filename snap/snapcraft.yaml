@@ -14,12 +14,14 @@
 
   apps:
     pyregius:
-      command: main.py
+      command: src/main.py
   parts:
     pyregius:
       plugin: python
       python-version: python3
-      source: ../  #http://dmnfarrell.github.io/software/python-snap
+      prepare: |
+            chmod +x src/main.py
+      #source: ../  #http://dmnfarrell.github.io/software/python-snap
       #python-packages: 
       build-packages: [python3-pip, python3-gi, python3-docutils, gir1.2-gtksource-3.0, gir1.2-webkit2-4.0, gir1.2-gtkspell3-3.0]
   
