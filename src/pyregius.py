@@ -15,8 +15,9 @@ __date__        = "22-Abr-2019" #inicio del proyecto
 '''Para instalar ver si hay los paquetes python3.5 y python3-pip
 despues installar /usr/bin/pip3 install pyobject
 
-apt install python3-pip python3-gi python3-docutils gir1.2-gtksource-3.0 \
+sudo apt install python3-pip python3-gi python3-docutils gir1.2-gtksource-3.0 \
             gir1.2-webkit2-4.0 gir1.2-gtkspell3-3.0
+sudo apt-get install pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev
             
 Para GtkSource ver 
 https://github.com/ondratu/formiko/blob/master/formiko/sourceview.py
@@ -294,9 +295,11 @@ class MainWindow(Gtk.Window):
     def generate_toolbar(self):
         toolbar = Gtk.Toolbar()
         self.grid.attach(toolbar, 0, 0, 3, 1)
-
+        
+        
         btnNew  = Gtk.ToolButton()
         btnNew.set_icon_name("document-new")
+        '''
         btnOpen = Gtk.ToolButton()
         btnOpen.set_icon_name("folder-open")
         btnSave = Gtk.ToolButton()
@@ -311,8 +314,9 @@ class MainWindow(Gtk.Window):
         btnZoomOut.set_icon_name("zoom-out")
         btnCompileRun = Gtk.ToolButton()
         btnCompileRun.set_icon_name("media-playback-start")
-
+        '''
         toolbar.insert(btnNew, 1)
+        '''
         toolbar.insert(btnOpen, 2)
         toolbar.insert(btnSave, 3)
         toolbar.insert(Gtk.SeparatorToolItem(), 4)
@@ -324,6 +328,7 @@ class MainWindow(Gtk.Window):
         toolbar.insert(Gtk.SeparatorToolItem(), 10)
         toolbar.insert(btnCompileRun, 11)
 
+        
         btnZoomIn.connect("clicked", self.btnZoomIn_click)
         btnZoomOut.connect("clicked", self.btnZoomOut_click)
         btnOpen.connect("clicked", self.open_dialog_load_file)
@@ -331,6 +336,7 @@ class MainWindow(Gtk.Window):
         btnUndo.connect("clicked", self.btn_undo_click)
         btnRedo.connect("clicked", self.btn_redo_click)
         btnCompileRun.connect("clicked", self.btn_compile_run_click)
+        '''
 
     def key_press_event(self, widget, event):
         keyval_name = Gdk.keyval_name(event.keyval)

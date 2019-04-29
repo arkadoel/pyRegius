@@ -1,0 +1,40 @@
+https://pygobject.readthedocs.io/en/latest/devguide/dev_environ.html
+sudo apt install -y python3-gi python3-gi-cairo gir1.2-gtk-3.0
+sudo apt install -y libgirepository1.0-dev gcc libcairo2-dev pkg-config python3-dev gir1.2-gtk-3.0
+sudo apt-get install -y python3-venv python3-wheel python3-dev
+sudo apt-get install -y libgirepository1.0-dev build-essential \
+  libbz2-dev libreadline-dev libssl-dev zlib1g-dev libsqlite3-dev wget \
+  curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libcairo2-dev
+
+--------------
+con terminal fish
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc
+source ~/.bashrc
+#si falla poner alias brc='source ~/.bashrc' salir de la terminal fish y volver a entrar
+pyenv install 3.6.4
+
+
+~/.pyenv/versions/3.6.4/bin/pip3 install pycairo
+~/.pyenv/versions/3.6.4/bin/pip3 install pygobject
+
+
+
+
+
+
+
+
+
+
+sudo /usr/bin/pyvenv-3.5 mypython
+
+reemplazar comillas dobles por simples en mypython/bin/activate.fish
+if test -n '$(mypython) '
+            printf "%s%s%s" '$(mypython) ' (set_color normal) (_old_fish_prompt)
+            return
+        end
+source mypython/bin/activate.fish
+
