@@ -37,7 +37,7 @@ gi.require_version('GtkSource', '3.0')
 gi.require_version('GtkSpell', '3.0')
 gi.require_version('Pango', '1.0')
 from gi.repository.Pango import FontDescription
-from gi.repository import Gtk, Pango, GtkSource, Gdk
+from gi.repository import Gtk, Pango, GtkSource, Gdk, GdkPixbuf
 from gi.repository.GtkSource import LanguageManager, DrawSpacesFlags, StyleSchemeManager
 
 EXAMPLE_TEXT = """
@@ -207,8 +207,9 @@ class MainWindow(Gtk.Window):
         :param use_spaces:
         :return:
         '''
-        self.source_view.set_insert_spaces_instead_of_tabs(use_spaces)
-        self.source_view.set_smart_backspace(use_spaces)
+        #self.source_view.set_insert_spaces_instead_of_tabs(use_spaces)
+        #self.source_view.set_smart_backspace(use_spaces)
+        pass
 
     def do_file_type(self, ext):
         language = self.LANGS.get(ext, self.LANGS['.rst'])
@@ -292,43 +293,52 @@ class MainWindow(Gtk.Window):
         self.textview.connect('scroll-event', self.on_scroll)
         self.connect("key-press-event", self.key_press_event)
 
+    def get_Tango_icon(self, icon_name):
+        icon_path='/usr/share/icons/Tango/scalable/'
+        iconNew = Gtk.Image.new_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file_at_scale(
+            filename=icon_path +  icon_name + '.svg',
+            width=32, 
+            height=32, 
+            preserve_aspect_ratio=True))
+        return iconNew
+
     def generate_toolbar(self):
+        
         toolbar = Gtk.Toolbar()
         self.grid.attach(toolbar, 0, 0, 3, 1)
+        toolbar.set_style(Gtk.ToolbarStyle.ICONS)
         
-        
+        #image.set_from_file('')
         btnNew  = Gtk.ToolButton()
-        btnNew.set_icon_name("document-new")
-        '''
+        btnNew.set_icon_widget(self.get_Tango_icon('actions/document-new'))        
         btnOpen = Gtk.ToolButton()
-        btnOpen.set_icon_name("folder-open")
+        btnOpen.set_icon_widget(self.get_Tango_icon("actions/folder-new"))
         btnSave = Gtk.ToolButton()
-        btnSave.set_icon_name("media-floppy")
+        btnSave.set_icon_widget(self.get_Tango_icon("devices/media-floppy"))
         btnUndo = Gtk.ToolButton()
-        btnUndo.set_icon_name("edit-undo")
+        btnUndo.set_icon_widget(self.get_Tango_icon("actions/edit-undo"))
         btnRedo = Gtk.ToolButton()
-        btnRedo.set_icon_name("edit-redo")
+        btnRedo.set_icon_widget(self.get_Tango_icon("actions/edit-redo"))
         btnZoomIn = Gtk.ToolButton()
-        btnZoomIn.set_icon_name("zoom-in")
+        btnZoomIn.set_icon_widget(self.get_Tango_icon("actions/add"))
         btnZoomOut = Gtk.ToolButton()
-        btnZoomOut.set_icon_name("zoom-out")
+        btnZoomOut.set_icon_widget(self.get_Tango_icon("actions/remove"))
         btnCompileRun = Gtk.ToolButton()
-        btnCompileRun.set_icon_name("media-playback-start")
-        '''
-        toolbar.insert(btnNew, 1)
-        '''
-        toolbar.insert(btnOpen, 2)
-        toolbar.insert(btnSave, 3)
-        toolbar.insert(Gtk.SeparatorToolItem(), 4)
-        toolbar.insert(btnUndo, 5)
-        toolbar.insert(btnRedo, 6)
-        toolbar.insert(Gtk.SeparatorToolItem(), 7)
-        toolbar.insert(btnZoomIn, 8)
-        toolbar.insert(btnZoomOut, 9)
-        toolbar.insert(Gtk.SeparatorToolItem(), 10)
-        toolbar.insert(btnCompileRun, 11)
-
+        btnCompileRun.set_icon_widget(self.get_Tango_icon("actions/media-playback-start"))
         
+        toolbar.insert(btnNew, 0)        
+        toolbar.insert(btnOpen, 1)
+        toolbar.insert(btnSave, 2)
+        toolbar.insert(Gtk.SeparatorToolItem(), 3)
+        toolbar.insert(btnUndo, 4)
+        toolbar.insert(btnRedo, 5)
+        toolbar.insert(Gtk.SeparatorToolItem(), 6)
+        toolbar.insert(btnZoomIn, 7)
+        toolbar.insert(btnZoomOut, 8)
+        toolbar.insert(Gtk.SeparatorToolItem(), 9)
+        toolbar.insert(btnCompileRun, 10)
+        
+        btnNew.connect("clicked", self.btn_new_file_click)
         btnZoomIn.connect("clicked", self.btnZoomIn_click)
         btnZoomOut.connect("clicked", self.btnZoomOut_click)
         btnOpen.connect("clicked", self.open_dialog_load_file)
@@ -336,7 +346,7 @@ class MainWindow(Gtk.Window):
         btnUndo.connect("clicked", self.btn_undo_click)
         btnRedo.connect("clicked", self.btn_redo_click)
         btnCompileRun.connect("clicked", self.btn_compile_run_click)
-        '''
+        
 
     def key_press_event(self, widget, event):
         keyval_name = Gdk.keyval_name(event.keyval)
@@ -365,6 +375,18 @@ class MainWindow(Gtk.Window):
         print('xfce4-terminal  -x %s' % comando)
 
         os.system('xfce4-terminal  -x %s -T "PyRegius"' % comando)
+
+    def btn_new_file_click(self, widget):
+        self.new_file()
+
+    def new_file(self):
+        texto = ' '
+        self.textbuffer = self.textview.get_buffer()
+        self.textbuffer.new_with_language(self.LANGS['.%s' % 'py'])
+        self.textbuffer.set_text(texto)
+        self.do_file_type('.py')
+        self.workingFile = None
+        self.textbuffer.set_modified(False)
 
     def open_dialog_load_file(self, widget):
 

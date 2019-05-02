@@ -12,8 +12,8 @@ def read(name):
         return f.read()
 setup(
     name='pyregius',
-    version='0.0.1',
-    description='description',
+    version='0.0.3',
+    description='Python IDE pyRegius',
     long_description=readme,
     author='',
     author_email='',
@@ -23,12 +23,12 @@ setup(
     include_package_data=True,
     zip_safe=True,
     license='GPLv3',
-    keywords='example app snap linux ubuntu',
+    keywords='python ide',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Natural Language :: English'
     ],
     test_suite='tests',
-    scripts=['src/main.py']
+    scripts=['src/pyregius.py']
 )
